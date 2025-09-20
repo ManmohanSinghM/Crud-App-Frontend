@@ -4,8 +4,8 @@ import ModalForm from "./components/ModalForm.jsx";
 import NavBar from "./components/NavBar.jsx";
 import TableList from "./components/TableList.jsx";
 import axios from "axios";
+import { SpeedInsights } from "@vercel/speed-insights/react"; // <-- 1. Import
 
-// ✅ Use deployed backend API
 const API_URL = "https://crud-app-backend-n0wq.onrender.com/api/clients";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // ✅ Fetch all clients
+  // Fetch all clients
   const fetchClients = async () => {
     setLoading(true);
     try {
@@ -34,7 +34,7 @@ function App() {
     fetchClients();
   }, []);
 
-  // ✅ Auto-clear error messages after 3s
+  // Auto-clear error messages after 3s
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => setError(null), 3000);
@@ -42,20 +42,20 @@ function App() {
     }
   }, [error]);
 
-  // ✅ Open modal
+  // Open modal
   const handleOpen = (mode, client = null) => {
     setModalMode(mode);
     setCurrentClient(client);
     setIsOpen(true);
   };
 
-  // ✅ Close modal
+  // Close modal
   const handleClose = () => {
     setIsOpen(false);
     setCurrentClient(null);
   };
 
-  // ✅ Add or edit client
+  // Add or edit client
   const handleSubmit = async (formData) => {
     const clientData = {
       ...formData,
@@ -87,7 +87,7 @@ function App() {
     }
   };
 
-  // ✅ Delete client
+  // Delete client
   const handleDelete = async (clientId) => {
     if (!window.confirm("Are you sure you want to delete this client?")) return;
 
@@ -102,7 +102,7 @@ function App() {
     }
   };
 
-  // ✅ Toggle active status
+  // Toggle active status
   const handleToggleStatus = async (clientToToggle) => {
     try {
       const updatedData = {
@@ -123,7 +123,7 @@ function App() {
     }
   };
 
-  // ✅ Filter clients by search term
+  // Filter clients by search term
   const filteredClients = clients.filter(
     (client) =>
       client.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -134,8 +134,7 @@ function App() {
   return (
     <>
       {error && <div className="alert alert-error shadow-lg">{error}</div>}
-
-      {loading && <div className="alert shadow-lg">Loading...</div>}
+      {loading && <div className="loading loading-spinner text-primary"></div>}
 
       <NavBar onOpen={() => handleOpen("add")} onSearch={setSearchTerm} />
 
@@ -153,6 +152,8 @@ function App() {
         onSubmit={handleSubmit}
         onClose={handleClose}
       />
+      
+      <SpeedInsights /> {/* <-- 2. Add the component here */}
     </>
   );
 }
