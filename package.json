@@ -10,6 +10,9 @@
     "lint": "eslint . --ext .js,.jsx"
   },
   "dependencies": {
+    "@supabase/auth-ui-react": "^0.4.7",
+    "@supabase/auth-ui-shared": "^0.1.8",
+    "@supabase/supabase-js": "^2.86.0",
     "@vercel/speed-insights": "^1.2.0",
     "axios": "^1.12.2",
     "react": "^19.1.1",
@@ -19,6 +22,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.13",
     "@vitejs/plugin-react": "^5.0.0",
+    "baseline-browser-mapping": "^2.9.0",
     "daisyui": "^5.1.12",
     "eslint": "^9.5.0",
     "tailwindcss": "^4.1.13",
